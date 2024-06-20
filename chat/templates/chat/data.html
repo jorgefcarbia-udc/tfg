@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" >
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="title" content="width=device-width, initial-scale=1.0">
+    <title>Dataload</title>
+</head>
+<body>
+<div id="login-input">
+    <form action="{% url 'chat:dataload' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="data-text" placeholder="Press to reload data..." required>
+        <button type="submit">Load Data</button>
+      </form> 
+</div>
+
+<div id="token-input">
+    <form method="post" action="{% url 'chat:token_count' %}">
+        {% csrf_token %}
+        <input type="text" name="token_text" placeholder="Type your text.." required>
+        <button type="submit">Count tokens</button>
+    </form>
+</div>
+<ul>
+  {% if token_count %}
+    <span>Token count: {{ token_count }}</span>
+  {% endif %}
+</ul>
+
+</body>
+</html>

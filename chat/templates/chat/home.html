@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Páxina principal</title>
+    <link rel="stylesheet" href="{% static 'chat/styles.css' %}">
+    <script src="{% static 'chat/longpress.js' %}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="{% static 'chat/curtain_home.js' %}"></script>
+</head>
+<body>
+    <div class="curtain"></div><div class="dot-typing-home"></div>
+    <header>
+        <div class="header-content roboto-regular">
+            <a href="https://solicitudetic.udc.gal/servicedesk/customer/user/requests?_=1" class="header-link">Helpdesk</a>
+            <a href="https://axudatic.udc.gal/" class="header-link">AxudaTIC</a>
+            <a class="header-link" onclick="toggleDropdown('username')">{{user.login_name}}</a>
+        </div>
+        <div class="header-content roboto-regular">
+            <div id="card-dropdown-username" class="username-dropdown">
+                {% if user.is_admin %}
+                <div class="username-dropdown-line"><a href="{% url 'chat:dataload' %}">Recargar fontes </a><img class="logout-icon" src="{% static 'update_icon.png' %}"></div>
+                 {% endif %}
+                <div class="username-dropdown-line"><a href="{% url 'chat:logout_user' %}">Finalizar sesión </a><img class="logout-icon" src="{% static 'logout_icon.png' %}"></div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="home-grid">
+            <div class="search-box roboto-black">
+                <form method="post" action="{% url 'chat:home' user.id %}">
+                    {% csrf_token %}
+                    {{form.chat_message}}
+                    <input type="submit" value="Submit" style="display:none;">
+                </form>
+            </div>
+            <div class="home-previous-queries">
+                <h2 class="previous-queries-h2 roboto-black">Consultas recentes</h2>
+                <div class="queries">
+                    {% for c in chats %}
+                    <div class="query-card roboto-regular">
+                        <a href="{% url 'chat:chat' c.chat.id %}" class="fill-card">
+                            {{ c.first_user_message.content }}
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+                <div class="view-all">
+                    <a href="{% url 'chat:chats' user.id%}" ><img class="all-chats-icon" src="{% static 'show_more.png' %}"></img></a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

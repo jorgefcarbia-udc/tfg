@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear conta</title>
+    <link rel="stylesheet" href="{% static 'chat/styles.css' %}">
+</head>
+<body>
+    <div class="signup-container">
+        <form class="signup-form" method="post" action="{% url 'chat:signup' %}">
+            <h2>Introduce os teus datos para o rexistro</h2>
+            {% csrf_token %}
+            <div class="password-form-container">
+                <div class="password-form">
+                    <p>Nome de usuario</p>{{ form.username }}
+                </div>
+                <div class="password-form">
+                    <p>Correo electrónico</p>{{ form.email }}
+                </div>
+            </div>
+            <p>Nome completo</p>{{ form.full_name}}
+            <p>Tipo de usuario</p>{{ form.user_type}}
+            <div class="password-form-container">
+                <div class="password-form">
+                    <p>Contrasinal</p>
+                    {{ form.password1 }}
+                </div>
+                <div class="password-form">
+                    <p>Repetir contrasinal</p>
+                    {{ form.password2}}
+                </div>
+            </div>
+            <button type="submit" class="signup-button">Completar rexistro</button>
+        </form>
+    </div>
+</body>
+</html>

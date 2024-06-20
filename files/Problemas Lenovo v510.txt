@@ -1,0 +1,10 @@
+Lenovo v510 pantalla en negro portatil y no inica sistema operativo 
+
+Se debe a que windows no es capaz de montar el disco
+
+Solucion:
+
+Desmontar bateria bios
+Quitar pila e iniciar sin ella
+Volver a colocarla y encender
+
